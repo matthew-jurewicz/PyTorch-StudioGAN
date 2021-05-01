@@ -108,7 +108,7 @@ dependencies:
     - jupyter-core==4.6.3
     - markdown==3.2.1
     - markupsafe==1.1.1
-    - minkowskiengine==0.4.1
+    - minkowskiengine==0.5.3
     - mistune==0.8.4
     - nbconvert==5.6.1
     - nbformat==5.0.4
