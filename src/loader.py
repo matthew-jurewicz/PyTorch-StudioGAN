@@ -136,12 +136,10 @@ def prepare_train_eval(local_rank, gpus_per_node, world_size, run_name, train_co
         D_optimizer = LARS(optimizer=D_optimizer, eps=1e-8, trust_coef=0.001)
 
     ##### load checkpoints if needed #####
-    if cfgs.checkpoint_folder is None:
+    if cfgs.checkpoint_folder is None or not exists(abspath(cfgs.checkpoint_folder)):
         checkpoint_dir = make_checkpoint_dir(cfgs.checkpoint_folder, run_name)
     else:
         when = "current" if cfgs.load_current is True else "best"
-        if not exists(abspath(cfgs.checkpoint_folder)):
-            raise NotADirectoryError
         checkpoint_dir = make_checkpoint_dir(cfgs.checkpoint_folder, run_name)
         g_checkpoint_dir = glob.glob(join(checkpoint_dir,"model=G-{when}-weights-step*.pth".format(when=when)))[0]
         d_checkpoint_dir = glob.glob(join(checkpoint_dir,"model=D-{when}-weights-step*.pth".format(when=when)))[0]
